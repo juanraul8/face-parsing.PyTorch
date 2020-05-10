@@ -15,7 +15,7 @@ import cv2
 from timeit import default_timer as timer
 
 #device = 'cpu'
-device = 'cuda:0'
+device = 'cuda:3'
 
 def vis_parsing_maps(im, parsing_anno, size, stride, save_path='"test'):
 
@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
     start = timer()
 
-    data_folder = "/mnt/raid/juan/StyleGANRelightingData/"
+    data_folder = "/mnt/raid/juan/StyleGANRelightingDataset/"
 
     n_classes = 19
     net = BiSeNet(n_classes=n_classes).to(device)
@@ -104,6 +104,8 @@ if __name__ == "__main__":
         if root == data_folder or depth > 0:
             continue
 
+        dirs = [dirs[0]]
+
         for dir in dirs:
             folder = os.path.join(root, dir)
 
@@ -118,14 +120,15 @@ if __name__ == "__main__":
 
                 # Load image
                 id = int(dir.split("_")[1])
-                name = "face_{:02d}".format(id)
+                #name = "face_{:02d}".format(id)
+                name = "img_{:02d}".format(id)
 
                 file = os.path.join(folder, "{}.png".format(name))
 
                 img = Image.open(file)
                 H, W = img.size
-                #image = img.resize((512, 512), Image.BILINEAR)
-                image = img
+                image = img.resize((512, 512), Image.BILINEAR) #Very important!!!
+                #image = img
 
                 img = to_tensor(image)
                 img = torch.unsqueeze(img, 0)

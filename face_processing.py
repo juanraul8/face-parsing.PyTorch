@@ -99,7 +99,8 @@ if __name__ == "__main__":
         #path = os.path.join(data_folder, file)
 
         id = 0
-        path = "/home/juan/Face_Parsing/Face.png"
+        #path = "/home/juan/Face_Parsing/Face.png"
+        path = "/mnt/raid/juan/StyleGANRelightingData/person_000000/img_00/face_00.png"
 
         print (path)
 
@@ -121,6 +122,8 @@ if __name__ == "__main__":
             out_file = "/home/juan/Face_Parsing/res/faces/semantic_face_{:04d}".format(id)
 
             vis_parsing_maps(image, parsing, stride=1, size = (H, W), save_path=out_file)
+
+        break
 
     end = timer()
     print("Preprocessing: {:0.2f} (s)".format(end - start))
